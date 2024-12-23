@@ -47,7 +47,7 @@ app.get("/api/blog-posts", async (req, res) => {
 
   try {
     const response = await fetch(
-      "https://api.search.brave.com/res/v1/web/search?q=blog+posts+related+to+living+with+'ibd'+'gut+health'",
+      "https://api.search.brave.com/res/v1/web/search?q=blog+posts+related+to+living+with+'ibd'+'gut+health'&count=10",
       {
         headers: {
           "Content-Type": "application/json",
@@ -56,11 +56,41 @@ app.get("/api/blog-posts", async (req, res) => {
       }
     );
 
-    console.log("BLOG RESPONSE ", response);
-
     const data = await response.json();
 
-    console.log("BLOG DATA ", data);
+    const final = data.web.results
+      .filter((item) => new Date(item.age).getFullYear() >= currentYear - 2)
+      .map((item) => {
+        return {
+          title: item.title,
+          url: item.url,
+          desc: item.description,
+          image: item.thumbnail.original,
+        };
+      });
+
+    res.json([...final]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("blogs: Something went wrong");
+  }
+});
+
+app.get("/api/useful-resources", async (req, res) => {
+  const currentYear = new Date().getFullYear();
+
+  try {
+    const response = await fetch(
+      "https://api.search.brave.com/res/v1/web/search?q=living+with+'ibd'+'gut+health'+useful+resources",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Subscription-Token": process.env.BRAVE_API_KEY,
+        },
+      }
+    );
+
+    const data = await response.json();
 
     const final = data.web.results
       .filter((item) => new Date(item.age).getFullYear() >= currentYear - 2)
@@ -73,15 +103,11 @@ app.get("/api/blog-posts", async (req, res) => {
         };
       });
 
-    console.log("FINAL ", final);
-
     res.json([...final]);
   } catch (error) {
     console.error(error);
-    res.status(500).send("Something went wrong");
+    res.status(500).send("Something went wrong useful resources");
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server Running on port ${port}`);
-});
+app.listen(port, () => {});
