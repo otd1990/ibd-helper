@@ -1,10 +1,16 @@
 {
   "folders": [
     {
-      "path": "../../../.."
+      "path": "../../.."
     },
     {
-      "path": "../../../../../Development-plan"
+      "path": "../../../../../agent-from-scratch"
+    },
+    {
+      "path": "../../../../../link-sharing-app"
+    },
+    {
+      "path": "../../../../../frontend-mentor"
     }
   ]
 }

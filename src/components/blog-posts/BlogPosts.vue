@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { BlogsPost } from "../../../types/types";
+import { BlogsPost } from "../../types/types";
 
 // State variables
 const blogPosts = ref<BlogsPost[]>();

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import BlogPosts from "./components/helpful-content/blog-posts/BlogPosts.vue";
+import BlogPosts from "./components/blog-posts/BlogPosts.vue";
+import SupportCommunities from "./components/support-communities/SupportCommunities.vue";
 
 const question = ref("");
 const response = ref("");
@@ -46,6 +47,9 @@ const askQuestion = async () => {
   </section>
   <section class="blogs">
     <BlogPosts />
+  </section>
+  <section class="communities">
+    <SupportCommunities />
   </section>
 </template>
 

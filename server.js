@@ -47,7 +47,7 @@ app.get("/api/blog-posts", async (req, res) => {
 
   try {
     const response = await fetch(
-      "https://api.search.brave.com/res/v1/web/search?q=blog+posts+related+to+living+with+'ibd'+'gut+health'&count=10",
+      "https://api.search.brave.com/res/v1/web/search?q=blog+posts+related+to+living+with+ibd+gut+health&count=20",
       {
         headers: {
           "Content-Type": "application/json",
@@ -76,12 +76,12 @@ app.get("/api/blog-posts", async (req, res) => {
   }
 });
 
-app.get("/api/useful-resources", async (req, res) => {
+app.get("/api/support-communities", async (req, res) => {
   const currentYear = new Date().getFullYear();
 
   try {
     const response = await fetch(
-      "https://api.search.brave.com/res/v1/web/search?q=living+with+'ibd'+'gut+health'+useful+resources",
+      "https://api.search.brave.com/res/v1/web/search?q=ibd+support+forums",
       {
         headers: {
           "Content-Type": "application/json",
@@ -95,11 +95,9 @@ app.get("/api/useful-resources", async (req, res) => {
     const final = data.web.results
       .filter((item) => new Date(item.age).getFullYear() >= currentYear - 2)
       .map((item) => {
+        console.log("SUPPRT ITEMS ", items);
         return {
-          title: item.title,
-          url: item.url,
-          desc: item.description,
-          image: item.thumbnail.src,
+          item,
         };
       });
 
